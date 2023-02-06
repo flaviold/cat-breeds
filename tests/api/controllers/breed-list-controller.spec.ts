@@ -1,6 +1,6 @@
 import { BreedListLoadParams } from 'api/core/interfaces/breed-service-interface'
 import { BreedListController } from '../../../src/api/controllers/breed-list-controller'
-import { BreedServiceSpy } from './mocks/mock-breed'
+import { BreedServiceSpy } from '../../mocks/mock-breed'
 
 const makeCompleteRequest = (): any => ({
   query: {

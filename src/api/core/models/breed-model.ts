@@ -14,38 +14,38 @@ export type BreedModel = {
   weight: Weight
   id: string
   name: string
-  cfaUrl: string
-  vetstreetUrl: string
-  vcahospitalsUrl: string
+  cfa_url: string
+  vetstreet_url: string
+  vcahospitals_url: string
   temperament: string
   origin: string
-  countryCodes: string
-  countryCode: string
+  country_codes: string
+  country_code: string
   description: string
-  lifeSpan: string
+  life_span: string
   indoor: number
-  altNames: string
+  alt_names: string
   adaptability: number
-  affectionLevel: number
-  childFriendly: number
-  dogFriendly: number
-  energyLevel: number
+  affection_level: number
+  child_friendly: number
+  dog_friendly: number
+  energy_level: number
   grooming: number
-  healthIssues: number
+  health_issues: number
   intelligence: number
-  sheddingLevel: number
-  socialNeeds: number
-  strangerFriendly: number
+  shedding_level: number
+  social_needs: number
+  stranger_friendly: number
   vocalisation: number
   experimental: number
   hairless: number
   natural: number
   rare: number
   rex: number
-  suppressedTail: number
-  shortLegs: number
-  wikipediaUrl: string
+  suppressed_tail: number
+  short_legs: number
+  wikipedia_url: string
   hypoallergenic: number
-  referenceImageId: string
+  reference_image_id: string
   image: Image
 }
