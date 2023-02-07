@@ -1,5 +1,5 @@
-import { BreedService } from '../../src/api/core/breed-service'
-import { BreedRepositorySpy } from '../mocks/mock-breed'
+import { BreedService } from '../../../src/api/core/breed-service'
+import { BreedRepositorySpy } from '../../mocks/mock-breed'
 
 const makeSut = (): { sut: BreedService, breedRepositorySpy: BreedRepositorySpy } => {
   const breedRepositorySpy = new BreedRepositorySpy()

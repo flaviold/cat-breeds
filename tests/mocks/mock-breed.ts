@@ -54,7 +54,7 @@ const makeBreed = (): BreedModel => ({
   wikipedia_url: 'wikipedia_url'
 })
 
-const makeBreeds = (): BreedModel[] => ([
+export const makeBreeds = (): BreedModel[] => ([
   makeBreed(),
   makeBreed(),
   makeBreed(),
