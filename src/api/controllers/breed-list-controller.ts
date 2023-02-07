@@ -5,13 +5,13 @@ import { BaseController } from './interfaces/base-controller'
 
 export class BreedListController implements BaseController<BreedModel[]> {
   constructor (
-    private readonly breedListController: BreedServiceInterface
+    private readonly breedService: BreedServiceInterface
   ) {}
 
   async handle (request: Request): Promise<BreedModel[]> {
     const param = this.mapParams(request)
 
-    return await this.breedListController.loadList(param)
+    return await this.breedService.loadList(param)
   }
 
   mapParams (request: Request): BreedListLoadParams {

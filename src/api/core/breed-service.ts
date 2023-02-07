@@ -4,14 +4,14 @@ import { BreedModel } from './models/breed-model'
 
 export class BreedService implements BreedServiceInterface {
   constructor (
-    private readonly breedRepositoryInterface: BreedRepositoryInterface
+    private readonly breedRepository: BreedRepositoryInterface
   ) {}
 
   async loadList (params: BreedListLoadParams): Promise<BreedModel[]> {
     const { limit, name } = params
     const breeds = await (params.name
-      ? this.breedRepositoryInterface.loadByName(name, limit)
-      : this.breedRepositoryInterface.load(limit))
+      ? this.breedRepository.loadByName(name, limit)
+      : this.breedRepository.load(limit))
 
     return breeds
   }
