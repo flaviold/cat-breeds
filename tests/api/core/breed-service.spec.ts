@@ -64,3 +64,30 @@ describe('Breed Service loadList', () => {
     expect(breeds).toBe(breedRepositorySpy.loadByNameResult)
   })
 })
+
+describe('Breed Service loadDetails', () => {
+  it('should call loadById with correct params', async () => {
+    const { sut, breedRepositorySpy } = makeSut()
+    const id = 'id'
+
+    await sut.loadDetails(id)
+    expect(breedRepositorySpy.loadByIdParam).toBe(id)
+  })
+
+  it('should return a breed on success', async () => {
+    const { sut, breedRepositorySpy } = makeSut()
+    const id = 'id'
+
+    const result = await sut.loadDetails(id)
+    expect(breedRepositorySpy.loadByIdResult).toBe(result)
+  })
+
+  it('should return null when not found', async () => {
+    const { sut, breedRepositorySpy } = makeSut()
+    const id = 'id'
+    breedRepositorySpy.loadByIdResult = null
+
+    const result = await sut.loadDetails(id)
+    expect(result).toBeNull()
+  })
+})

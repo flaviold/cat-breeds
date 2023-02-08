@@ -33,4 +33,6 @@ export class BreedRepository implements BreedRepositoryInterface {
 
     return breeds
   }
+
+  loadById: (id: string) => Promise<BreedModel>
 }

@@ -16,5 +16,7 @@ export class BreedService implements BreedServiceInterface {
     return breeds
   }
 
-  loadDetails: (id: string) => Promise<BreedModel>
+  async loadDetails (id: string): Promise<BreedModel> {
+    return await this.breedRepository.loadById(id)
+  }
 }

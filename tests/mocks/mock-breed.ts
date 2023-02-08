@@ -87,6 +87,8 @@ export class BreedRepositorySpy implements BreedRepositoryInterface {
   loadResult: BreedModel[] = makeBreeds()
   loadByNameParams: any
   loadByNameResult: BreedModel[] = makeBreeds()
+  loadByIdParam: string
+  loadByIdResult: BreedModel = makeBreed()
 
   async load (limit?: number): Promise<BreedModel[]> {
     this.loadParams = limit
@@ -98,5 +100,11 @@ export class BreedRepositorySpy implements BreedRepositoryInterface {
     this.loadByNameParams = { name, limit }
 
     return this.loadByNameResult
+  }
+
+  async loadById (id: string): Promise<BreedModel> {
+    this.loadByIdParam = id
+
+    return this.loadByIdResult
   }
 }
