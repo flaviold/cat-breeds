@@ -14,7 +14,7 @@ const makeWeight = (): Weight => ({
   metric: 'metric'
 })
 
-const makeBreed = (): BreedModel => ({
+export const makeBreed = (): BreedModel => ({
   adaptability: 1,
   affection_level: 1,
   alt_names: 'alt_names',

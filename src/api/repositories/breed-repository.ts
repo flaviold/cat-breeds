@@ -23,6 +23,10 @@ export class BreedRepository implements BreedRepositoryInterface {
     return breeds.filter(i => i.name.toLowerCase().includes(name.toLowerCase()))
   }
 
+  async loadById (id: string): Promise<BreedModel> {
+    return await this.fetchBreedById(id)
+  }
+
   async fetchBreeds (): Promise<BreedModel[]> {
     const result = await fetch(`${env.catApiUrl}/breeds`, {
       headers: {
@@ -34,5 +38,14 @@ export class BreedRepository implements BreedRepositoryInterface {
     return breeds
   }
 
-  loadById: (id: string) => Promise<BreedModel>
+  async fetchBreedById (id: string): Promise<BreedModel> {
+    const result = await fetch(`${env.catApiUrl}/breeds/${id}`, {
+      headers: {
+        'x-api-key': env.catApiKey
+      }
+    })
+    const breed = (await result.json()) as BreedModel
+
+    return breed || null
+  }
 }

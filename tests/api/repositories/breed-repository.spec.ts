@@ -1,5 +1,5 @@
 import { BreedRepository } from '../../../src/api/repositories/breed-repository'
-import { makeBreeds } from '../../mocks/mock-breed'
+import { makeBreed, makeBreeds } from '../../mocks/mock-breed'
 import env from '../../../src/config/env'
 
 const makeSut = (): { sut: BreedRepository } => {
@@ -59,6 +59,38 @@ describe('Breed Repository loadByName', () => {
 
     const result = await sut.loadByName('BreedName')
     expect(result).toEqual([breeds[0], breeds[1]])
+  })
+})
+
+describe('Breed Repository loadById', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  it('should call fetchBreedById', async () => {
+    const { sut } = makeSut()
+    const spy = jest.spyOn(BreedRepository.prototype, 'fetchBreedById')
+    const id = 'id'
+
+    await sut.loadById(id)
+    expect(spy).toHaveBeenCalledTimes(1)
+  })
+
+  it('should return a breed filtered by id on success', async () => {
+    const { sut } = makeSut()
+    const breed = makeBreed()
+    jest.spyOn(BreedRepository.prototype, 'fetchBreedById').mockImplementation(async () => await Promise.resolve(breed))
+
+    const result = await sut.loadById('id')
+    expect(result).toBe(breed)
+  })
+
+  it('should return null if id is not found', async () => {
+    const { sut } = makeSut()
+    jest.spyOn(BreedRepository.prototype, 'fetchBreedById').mockImplementation(async () => await Promise.resolve(null))
+
+    const result = await sut.loadById('id')
+    expect(result).toBeNull()
   })
 })
 
