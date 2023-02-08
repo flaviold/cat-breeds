@@ -4,23 +4,27 @@ import env from '../../config/env'
 
 export class BreedRepository implements BreedRepositoryInterface {
   async load (limit?: number): Promise<BreedModel[]> {
-    return await this.fetchBreeds(limit)
+    const breeds = await this.fetchBreeds()
+
+    if (limit == null) {
+      return breeds
+    } else {
+      return breeds.slice(0, limit)
+    }
   }
 
   async loadByName (name: string, limit?: number): Promise<BreedModel[]> {
-    const breeds = await this.fetchBreeds(limit)
+    let breeds = await this.fetchBreeds()
+
+    if (limit != null) {
+      breeds = breeds.slice(0, limit)
+    }
 
     return breeds.filter(i => i.name.toLowerCase().includes(name.toLowerCase()))
   }
 
-  async fetchBreeds (limit?: number): Promise<BreedModel[]> {
-    let query: string = ''
-
-    if (limit) {
-      query = `?limit=${limit}`
-    }
-
-    const result = await fetch(`${env.catApiUrl}/breeds${query}`, {
+  async fetchBreeds (): Promise<BreedModel[]> {
+    const result = await fetch(`${env.catApiUrl}/breeds`, {
       headers: {
         'x-api-key': env.catApiKey
       }

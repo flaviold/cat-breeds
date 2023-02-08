@@ -15,15 +15,12 @@ describe('Breed Repository load', () => {
     jest.restoreAllMocks()
   })
 
-  it('should call fetchBreeds with correct params', async () => {
+  it('should call fetchBreeds', async () => {
     const { sut } = makeSut()
     const spy = jest.spyOn(BreedRepository.prototype, 'fetchBreeds')
 
     await sut.load()
-    expect(spy).toHaveBeenCalledWith(undefined)
-
-    await sut.load(11)
-    expect(spy).toHaveBeenCalledWith(11)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   it('should return a list of breeds on success', async () => {
@@ -31,8 +28,11 @@ describe('Breed Repository load', () => {
     const breeds = makeBreeds()
     jest.spyOn(BreedRepository.prototype, 'fetchBreeds').mockImplementation(async () => await Promise.resolve(breeds))
 
-    const result = await sut.load()
+    let result = await sut.load()
     expect(result).toBe(breeds)
+
+    result = await sut.load(3)
+    expect(result).toEqual(breeds.slice(0, 3))
   })
 })
 
@@ -41,16 +41,13 @@ describe('Breed Repository loadByName', () => {
     jest.restoreAllMocks()
   })
 
-  it('should call fetchBreeds with correct params', async () => {
+  it('should call fetchBreeds', async () => {
     const { sut } = makeSut()
     const spy = jest.spyOn(BreedRepository.prototype, 'fetchBreeds')
     const name = 'name'
 
-    await sut.loadByName(name)
-    expect(spy).toHaveBeenCalledWith(undefined)
-
     await sut.loadByName(name, 11)
-    expect(spy).toHaveBeenCalledWith(11)
+    expect(spy).toHaveBeenCalledTimes(1)
   })
 
   it('should return a list of breeds filtered by name on success', async () => {
@@ -76,9 +73,6 @@ describe('Breed Repository fetchBreeds', () => {
 
     await sut.fetchBreeds()
     expect(spy).toHaveBeenCalledWith(`${env.catApiUrl}/breeds`, { headers: { 'x-api-key': env.catApiKey } })
-
-    await sut.fetchBreeds(2)
-    expect(spy).toHaveBeenCalledWith(`${env.catApiUrl}/breeds?limit=2`, { headers: { 'x-api-key': env.catApiKey } })
   })
 
   it('should return a list of breeds filtered by name on success', async () => {
