@@ -7,4 +7,5 @@ export type BreedListLoadParams = {
 
 export interface BreedServiceInterface {
   loadList: (params: BreedListLoadParams) => Promise<BreedModel[]>
+  loadDetails: (id: string) => Promise<BreedModel>
 }

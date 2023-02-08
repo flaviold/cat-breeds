@@ -15,4 +15,6 @@ export class BreedService implements BreedServiceInterface {
 
     return breeds
   }
+
+  loadDetails: (id: string) => Promise<BreedModel>
 }

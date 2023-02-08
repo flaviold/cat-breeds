@@ -66,11 +66,19 @@ export const makeBreeds = (): BreedModel[] => ([
 export class BreedServiceSpy implements BreedServiceInterface {
   breedListLoadParams: BreedListLoadParams
   loadListResult: BreedModel[] = makeBreeds()
+  loadDetailsParam: string
+  loadDetailsResult: BreedModel = makeBreed()
 
   async loadList (params: BreedListLoadParams): Promise<BreedModel[]> {
     this.breedListLoadParams = params
 
     return this.loadListResult
+  }
+
+  async loadDetails (id: string): Promise<BreedModel> {
+    this.loadDetailsParam = id
+
+    return this.loadDetailsResult
   }
 }
 
