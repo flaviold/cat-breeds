@@ -4,8 +4,8 @@ services:
     container_name: cat-breed-cache
     image: redis
     restart: always
-  cat-breed:
-    build: .
+  cat-breed-backend:
+    build: ./backend
     restart: always
     command: npm start
     depends_on:
@@ -17,7 +17,7 @@ services:
       - REDIS_URL=redis://redis
       - REDIS_CACHE_EXPIRATION=${REDIS_CACHE_EXPIRATION}
     volumes:
-      - .:/usr/src/cat-breed/
-      - /usr/src/cat-breed/node_modules/
+      - ./backend/:/usr/src/cat-breed-backend/
+      - /usr/src/cat-breed-backend/node_modules/
     ports:
       - ${PORT:-3000}:3000
