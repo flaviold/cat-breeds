@@ -1,0 +1,23 @@
+version: '3'
+services:
+  redis:
+    container_name: cat-breed-cache
+    image: redis
+    restart: always
+  cat-breed:
+    build: .
+    restart: always
+    command: npm start
+    depends_on:
+      - redis
+    environment:
+      - PORT=3000
+      - CAT_API_KEY=${CAT_API_KEY}
+      - CAT_API_URL=${CAT_API_URL}
+      - REDIS_URL=redis://redis
+      - REDIS_CACHE_EXPIRATION=${REDIS_CACHE_EXPIRATION}
+    volumes:
+      - .:/usr/src/cat-breed/
+      - /usr/src/cat-breed/node_modules/
+    ports:
+      - ${PORT:-3000}:3000
