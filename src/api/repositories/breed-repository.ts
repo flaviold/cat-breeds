@@ -1,5 +1,6 @@
-import { BreedRepositoryInterface } from 'api/core/interfaces/breed-repository-interface'
-import { BreedModel } from 'api/core/models/breed-model'
+import { BreedRepositoryInterface } from '../core/interfaces/breed-repository-interface'
+import { BreedModel } from '../core/models/breed-model'
+import { redisHelper } from '../helpers/redis-helper'
 import env from '../../config/env'
 
 export class BreedRepository implements BreedRepositoryInterface {
@@ -16,11 +17,13 @@ export class BreedRepository implements BreedRepositoryInterface {
   async loadByName (name: string, limit?: number): Promise<BreedModel[]> {
     let breeds = await this.fetchBreeds()
 
+    breeds = breeds.filter(i => i.name.toLowerCase().includes(name.toLowerCase()))
+
     if (limit != null) {
       breeds = breeds.slice(0, limit)
     }
 
-    return breeds.filter(i => i.name.toLowerCase().includes(name.toLowerCase()))
+    return breeds
   }
 
   async loadById (id: string): Promise<BreedModel> {
@@ -28,23 +31,37 @@ export class BreedRepository implements BreedRepositoryInterface {
   }
 
   async fetchBreeds (): Promise<BreedModel[]> {
+    let breeds = await redisHelper.get<BreedModel[]>('breeds')
+
+    if (breeds) {
+      return breeds
+    }
+
     const result = await fetch(`${env.catApiUrl}/breeds`, {
       headers: {
         'x-api-key': env.catApiKey
       }
     })
-    const breeds = (await result.json()) as BreedModel[]
+    breeds = (await result.json()) as BreedModel[]
+
+    await redisHelper.set('breeds', breeds)
 
     return breeds
   }
 
   async fetchBreedById (id: string): Promise<BreedModel> {
+    let breed = (await redisHelper.get<BreedModel[]>('breeds'))?.find(b => b.id === id)
+
+    if (breed) {
+      return breed
+    }
+
     const result = await fetch(`${env.catApiUrl}/breeds/${id}`, {
       headers: {
         'x-api-key': env.catApiKey
       }
     })
-    const breed = (await result.json()) as BreedModel
+    breed = (await result.json()) as BreedModel
 
     return breed || null
   }
