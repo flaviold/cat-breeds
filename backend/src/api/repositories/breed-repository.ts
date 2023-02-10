@@ -19,7 +19,6 @@ export class BreedRepository implements BreedRepositoryInterface {
 
     breeds = breeds.filter(i => i.name.toLowerCase().includes(name.toLowerCase()))
 
-    console.log(limit)
     if (limit != null) {
       breeds = breeds.slice(0, limit)
     }
