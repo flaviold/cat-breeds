@@ -15,21 +15,30 @@ class RedisHelper {
   }
 
   async get <T>(key: string): Promise<T> {
-    if (!RedisHelper.client.isOpen) {
-      await this.connect()
-    }
+    try {
+      if (!RedisHelper.client.isOpen) {
+        await this.connect()
+      }
 
-    return JSON.parse(await RedisHelper.client.get(key)) as T
+      return JSON.parse(await RedisHelper.client.get(key)) as T
+    } catch (e) {
+      console.error(e)
+      return null
+    }
   }
 
   async set (key: string, value: any): Promise<void> {
-    if (!RedisHelper.client.isOpen) {
-      await this.connect()
-    }
+    try {
+      if (!RedisHelper.client.isOpen) {
+        await this.connect()
+      }
 
-    await RedisHelper.client.set(key, JSON.stringify(value), {
-      EX: env.redisCacheExpiration as number
-    })
+      await RedisHelper.client.set(key, JSON.stringify(value), {
+        EX: env.redisCacheExpiration as number
+      })
+    } catch (e) {
+      console.error(e)
+    }
   }
 }
 

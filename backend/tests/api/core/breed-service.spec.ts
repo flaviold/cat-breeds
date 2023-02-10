@@ -15,7 +15,7 @@ describe('Breed Service loadList', () => {
   it('should call load if name is not passed', async () => {
     const { sut, breedRepositorySpy } = makeSut()
     const spy = jest.spyOn(breedRepositorySpy, 'load')
-    const params = {}
+    const params = { randomize: false }
 
     await sut.loadList(params)
 
@@ -25,7 +25,7 @@ describe('Breed Service loadList', () => {
   it('should not call loadByName if name is not passed', async () => {
     const { sut, breedRepositorySpy } = makeSut()
     const spy = jest.spyOn(breedRepositorySpy, 'loadByName')
-    const params = {}
+    const params = { randomize: false }
 
     await sut.loadList(params)
 
@@ -35,7 +35,7 @@ describe('Breed Service loadList', () => {
   it('should not call load if name is passed', async () => {
     const { sut, breedRepositorySpy } = makeSut()
     const spy = jest.spyOn(breedRepositorySpy, 'load')
-    const params = { name: 'name' }
+    const params = { name: 'name', randomize: false }
 
     await sut.loadList(params)
 
@@ -45,7 +45,7 @@ describe('Breed Service loadList', () => {
   it('should call loadByName if name is passed', async () => {
     const { sut, breedRepositorySpy } = makeSut()
     const spy = jest.spyOn(breedRepositorySpy, 'loadByName')
-    const params = { name: 'name' }
+    const params = { name: 'name', randomize: false }
 
     await sut.loadList(params)
 
@@ -55,11 +55,11 @@ describe('Breed Service loadList', () => {
   it('should return a list of breeds', async () => {
     const { sut, breedRepositorySpy } = makeSut()
 
-    let params = {}
+    let params: any = { randomize: false }
     let breeds = await sut.loadList(params)
     expect(breeds).toBe(breedRepositorySpy.loadResult)
 
-    params = { name: 'name' }
+    params = { name: 'name', randomize: false }
     breeds = await sut.loadList(params)
     expect(breeds).toBe(breedRepositorySpy.loadByNameResult)
   })

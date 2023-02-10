@@ -17,7 +17,8 @@ export class BreedListController implements BaseController<BreedModel[]> {
   mapParams (request: Request): BreedListLoadParams {
     return {
       limit: request.query?.limit ? Number(request.query?.limit) : null,
-      name: request.query?.name as string
+      name: request.query?.name as string,
+      randomize: request.query?.randomize === '1'
     }
   }
 }

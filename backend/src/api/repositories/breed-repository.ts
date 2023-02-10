@@ -4,8 +4,12 @@ import { redisHelper } from '../helpers/redis-helper'
 import env from '../../config/env'
 
 export class BreedRepository implements BreedRepositoryInterface {
-  async load (limit?: number): Promise<BreedModel[]> {
-    const breeds = await this.fetchBreeds()
+  async load (randomize: boolean, limit?: number): Promise<BreedModel[]> {
+    let breeds = await this.fetchBreeds()
+
+    if (randomize) {
+      breeds = this.randomizeArray(breeds)
+    }
 
     if (limit == null) {
       return breeds
@@ -14,10 +18,14 @@ export class BreedRepository implements BreedRepositoryInterface {
     }
   }
 
-  async loadByName (name: string, limit?: number): Promise<BreedModel[]> {
+  async loadByName (name: string, randomize: boolean, limit?: number): Promise<BreedModel[]> {
     let breeds = await this.fetchBreeds()
 
     breeds = breeds.filter(i => i.name.toLowerCase().includes(name.toLowerCase()))
+
+    if (randomize) {
+      breeds = this.randomizeArray(breeds)
+    }
 
     if (limit != null) {
       breeds = breeds.slice(0, limit)
@@ -64,5 +72,9 @@ export class BreedRepository implements BreedRepositoryInterface {
     breed = (await result.json()) as BreedModel
 
     return breed || null
+  }
+
+  randomizeArray (arr: BreedModel[]): BreedModel[] {
+    return arr.sort(() => Math.random() - 0.5)
   }
 }

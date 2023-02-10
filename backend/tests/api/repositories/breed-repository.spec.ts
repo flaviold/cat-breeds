@@ -26,7 +26,7 @@ describe('Breed Repository load', () => {
     const { sut } = makeSut()
     const spy = jest.spyOn(BreedRepository.prototype, 'fetchBreeds').mockImplementation(async () => await Promise.resolve(null))
 
-    await sut.load()
+    await sut.load(false)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -35,10 +35,10 @@ describe('Breed Repository load', () => {
     const breeds = makeBreeds()
     jest.spyOn(BreedRepository.prototype, 'fetchBreeds').mockImplementation(async () => await Promise.resolve(breeds))
 
-    let result = await sut.load()
+    let result = await sut.load(false)
     expect(result).toBe(breeds)
 
-    result = await sut.load(3)
+    result = await sut.load(false, 3)
     expect(result).toEqual(breeds.slice(0, 3))
   })
 })
@@ -54,7 +54,7 @@ describe('Breed Repository loadByName', () => {
     const spy = jest.spyOn(BreedRepository.prototype, 'fetchBreeds').mockImplementation(async () => await Promise.resolve([]))
     const name = 'name'
 
-    await sut.loadByName(name, 11)
+    await sut.loadByName(name, false, 11)
     expect(spy).toHaveBeenCalledTimes(1)
   })
 
@@ -65,7 +65,7 @@ describe('Breed Repository loadByName', () => {
     breeds[1].name = 'BreedName2'
     jest.spyOn(BreedRepository.prototype, 'fetchBreeds').mockImplementation(async () => await Promise.resolve(breeds))
 
-    const result = await sut.loadByName('BreedName')
+    const result = await sut.loadByName('BreedName', false)
     expect(result).toEqual([breeds[0], breeds[1]])
   })
 })

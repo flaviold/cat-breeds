@@ -8,10 +8,10 @@ export class BreedService implements BreedServiceInterface {
   ) {}
 
   async loadList (params: BreedListLoadParams): Promise<BreedModel[]> {
-    const { limit, name } = params
+    const { limit, name, randomize } = params
     const breeds = await (params.name
-      ? this.breedRepository.loadByName(name, limit)
-      : this.breedRepository.load(limit))
+      ? this.breedRepository.loadByName(name, randomize, limit)
+      : this.breedRepository.load(randomize, limit))
 
     return breeds
   }

@@ -90,13 +90,13 @@ export class BreedRepositorySpy implements BreedRepositoryInterface {
   loadByIdParam: string
   loadByIdResult: BreedModel = makeBreed()
 
-  async load (limit?: number): Promise<BreedModel[]> {
+  async load (randomize: boolean, limit?: number): Promise<BreedModel[]> {
     this.loadParams = limit
 
     return this.loadResult
   }
 
-  async loadByName (name: string, limit?: number): Promise<BreedModel[]> {
+  async loadByName (name: string, randomize: boolean, limit?: number): Promise<BreedModel[]> {
     this.loadByNameParams = { name, limit }
 
     return this.loadByNameResult

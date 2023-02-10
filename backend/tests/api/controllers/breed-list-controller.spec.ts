@@ -5,7 +5,8 @@ import { BreedServiceSpy } from '../../mocks/mock-breed'
 const makeCompleteRequest = (): any => ({
   query: {
     limit: 10,
-    name: 'Breed Name'
+    name: 'Breed Name',
+    randomize: 0
   }
 })
 
@@ -13,7 +14,8 @@ const makeEmptyRequest = (): any => ({})
 
 const makeBreedListLoadParams = (): BreedListLoadParams => ({
   limit: 10,
-  name: 'name'
+  name: 'name',
+  randomize: false
 })
 
 const makeSut = (): { sut: BreedListController, breedServiceSpy: BreedServiceSpy } => {
@@ -65,7 +67,7 @@ describe('Breed List Controller mapParams', () => {
   it('should return a correct BreedListLoadParams', () => {
     const { sut } = makeSut()
     const request = makeCompleteRequest()
-    expect(sut.mapParams(request)).toEqual({ limit: request.query.limit, name: request.query.name })
-    expect(sut.mapParams(makeEmptyRequest())).toEqual({ limit: 5 })
+    expect(sut.mapParams(request)).toEqual({ limit: request.query.limit, name: request.query.name, randomize: request.query.randomize === '1' })
+    expect(sut.mapParams(makeEmptyRequest())).toEqual({ limit: null, randomize: false })
   })
 })
