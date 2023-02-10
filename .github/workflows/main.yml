@@ -1,4 +1,4 @@
-name: remote ssh command
+name: Build and deploy
 on: [push]
 jobs:
 
@@ -13,4 +13,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        script: whoami
+        script: |
+          cd cat-breeds &&\
+          git pull origin main &&\
+          docker-compose build --force-rm --no-cache &&\
+          docker-compose up -d
