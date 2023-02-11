@@ -11,8 +11,7 @@ function BreedGrid (props: any) {
       width: '100%',
       height: '100%',
       display: 'flex',
-      justifyContent: 'center',
-      marginTop: 5
+      justifyContent: 'center'
     }}>
       <Grid container spacing={2}  sx={{ maxWidth: 1200 }}>
         {breeds.map((breed: BreedModel) => (
