@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, createBrowserRouter, Navigate, Route, RouterProvider, Routes } from 'react-router-dom'
-import App from './App'
 import { CssBaseline } from '@mui/material'
 import BaseLayout from './layouts/BaseLayout'
 import Home from './pages/Home'
