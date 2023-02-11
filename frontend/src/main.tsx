@@ -6,6 +6,7 @@ import { CssBaseline } from '@mui/material'
 import BaseLayout from './layouts/BaseLayout'
 import Home from './pages/Home'
 import Search from './pages/Search'
+import Detail from './pages/Detail'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -16,7 +17,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <Route path='/' element={<Navigate to="/home" />} />
           <Route path='/home' element={<Home />} />
           <Route path='/search' element={<Search />} />
-          <Route path='/details/:id' element={<App />} />
+          <Route path='/details/:id' element={<Detail />} />
         </Routes>
       </BaseLayout>
     </BrowserRouter>

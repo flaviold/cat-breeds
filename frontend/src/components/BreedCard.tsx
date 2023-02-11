@@ -16,11 +16,10 @@ function BreedCard (props: BreedCardProp) {
   }
 
   return (
-    <Card sx={{ maxWidth: 345, height:  400 }}>
+    <Card sx={{ maxWidth: 345, height:  400, margin: 'auto' }}>
       <CardMedia
         sx={{ height: 200 }}
         image={`${imgUrl}/${breed.reference_image_id}.jpg`}
-        title="green iguana"
       />
       <CardContent sx={{height: 150}}>
         <Typography gutterBottom variant="h5" component="div">
@@ -31,7 +30,7 @@ function BreedCard (props: BreedCardProp) {
         </Typography>
       </CardContent>
       <CardActions sx={{height: 50}}>
-        <Button onClick={() => navigate(`/${breed.id}`)} size="small">Details</Button>
+        <Button variant="contained" onClick={() => navigate(`/details/${breed.id}`)} size="small">Details</Button>
       </CardActions>
     </Card>
   )

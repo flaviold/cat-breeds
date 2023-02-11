@@ -10,7 +10,7 @@ function Home() {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`${appUrl}/breed?limit=5`)
+    fetch(`${appUrl}/breed?limit=5&randomize=1`)
       .then(data => data.json())
       .then(result => {
         setBreeds(result as BreedModel[])
@@ -21,7 +21,7 @@ function Home() {
   return (
     <React.Fragment>
     {
-      loading ? <h1>Loading...</h1> :<BreedGrid className="123" breeds={breeds} />
+      loading ? <h1>Loading...</h1> : <BreedGrid breeds={breeds} />
     }
     </React.Fragment>)
 }

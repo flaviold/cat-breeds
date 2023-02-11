@@ -66,7 +66,7 @@ function NavBar() {
       <AppBar position="static">
         <Toolbar>
           <Typography onClick={() => navigate('/')} variant="h6" component="div" sx={{ flexGrow: 1, cursor: 'pointer' }}>
-            Cat Breeds
+            Cats
           </Typography>
           <Search>
             <SearchIconWrapper>
